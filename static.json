@@ -1,0 +1,9 @@
+{
+  "root": "dist/",
+  "redirects": {
+    "/Callback": {
+      "url": "/#/Callback",
+      "status": 302
+    }
+  }
+}
