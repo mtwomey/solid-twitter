@@ -11,7 +11,7 @@ function authInit() {
     response_type: 'code',
     client_id: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
     redirect_uri: `${window.location.href}callback/`,
-    scope: 'tweet.read',
+    scope: 'tweet.read users.read',
     state: 'state',
     code_challenge: 'challenge',
     code_challenge_method: 'plain'
