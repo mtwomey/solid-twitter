@@ -3,6 +3,7 @@ import { render } from 'solid-js/web';
 import { createSignal } from 'solid-js';
 import qs from 'qs';
 import axios from 'axios';
+import 'uno.css';
 
 function authInit() {
   const authUri = 'https://twitter.com/i/oauth2/authorize';
@@ -21,6 +22,7 @@ function authInit() {
 }
 
 const [twitterCode, setTwitterCode] = createSignal('Unknown');
+const [twitterAuthResult, setTwitterAuthResult] = createSignal('Unknown');
 
 function handleLocalStorageEvent(e) {
   if (Object.keys(e.storageArea).includes('twitterAuthCode')) {
@@ -38,8 +40,6 @@ function handleLocalStorageEvent(e) {
         code_verifier: 'challenge'
       })
     }).then(result => {
-      let x = result;
-      let y = x;
     }).catch(error => {
       console.log(error);
     });
@@ -53,9 +53,12 @@ window.addEventListener("storage", handleLocalStorageEvent, false);
 function Auth () {
   return (
     <div>
-      Authorize Twitter here --->
-      <button onClick={authInit}> Authorize </button>
-      <p>Auth Code: {twitterCode}</p>
+      <h2>Authorize Twitter</h2>
+      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded border-0" onClick={authInit}> Authorize </button>
+      <h2>Auth Code</h2>
+      <h4 class="text-red-400">{twitterCode}</h4>
+      <h2>Result</h2>
+      <h4 class="text-green-600">{twitterAuthResult}</h4>
       <p>Still have to exchange it for a token</p>
     </div>
   );
