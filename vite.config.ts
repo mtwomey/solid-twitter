@@ -9,7 +9,7 @@ export default defineConfig({
     polyfillDynamicImport: false,
     rollupOptions: {
       input: {
-        main: path.resolve(__dirname, 'index.html'),
+        main: path.resolve(__dirname, 'src/index.html'),
         callback: path.resolve(__dirname, 'callback/index.html')
       }
     }
