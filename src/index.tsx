@@ -18,6 +18,8 @@ function authInit() {
   });
   const fullUrl = `${authUri}?${params}`;
 
+  window.addEventListener("storage", handleLocalStorageEvent, false);
+
   window.open(fullUrl, 'authWindow', 'height=700,width=500');
 }
 
@@ -26,6 +28,7 @@ const [twitterAuthResult, setTwitterAuthResult] = createSignal('Unknown');
 
 function handleLocalStorageEvent(e) {
   if (Object.keys(e.storageArea).includes('twitterAuthCode')) {
+    window.removeEventListener("storage", handleLocalStorageEvent, false);
     const twitterAuthCode = localStorage.getItem('twitterAuthCode');
     setTwitterAuthCode(twitterAuthCode); // This doesn't necessairly happen right away....
 
@@ -46,11 +49,9 @@ function handleLocalStorageEvent(e) {
     } catch (e) {
       let x = e;
     }
-    debugger
   }
 }
 
-window.addEventListener("storage", handleLocalStorageEvent, false);
 
 function Auth() {
   return (

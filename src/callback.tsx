@@ -2,7 +2,6 @@
 import { render } from 'solid-js/web';
 
 function Callback () {
-    debugger
     const params = new URLSearchParams(window.location.search);
     localStorage.setItem('twitterAuthCode', params.get('code'));
     window.close();
