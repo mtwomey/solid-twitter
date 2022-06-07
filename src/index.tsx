@@ -56,12 +56,14 @@ function handleLocalStorageEvent(e) {
 function Auth() {
   return (
     <div>
-      <h2>Authorize Twitter</h2>
-      <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded border-0" onClick={authInit}> Authorize </button>
-      <h2>Auth Code</h2>
-      <h4 class="text-red-400 text-lg">{twitterAuthCode}</h4>
-      <h2>Result</h2>
-      <pre class="text-green-600 text-lg">{twitterAuthResult}</pre>
+      <div class="flex border-solid border-0 border-b-2 pb3">
+        <div class="text-2xl font-mono font-medium">Authorize Twitter</div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-mono text-xs font-thin py-2 px-4 rounded border-0 ml3" onClick={authInit}> Authorize </button>
+      </div>
+      <div class="text-2xl font-mono font-medium mt3">Auth Code</div>
+      <div class="text-red-400 text-lg font-mono font-thin">{twitterAuthCode}</div>
+      <div class="text-2xl font-mono font-medium mt3">Result</div>
+      <div class="text-green-600 text-lg font-mono font-thin whitespace-pre">{twitterAuthResult}</div>
     </div>
   );
 };
