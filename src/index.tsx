@@ -30,6 +30,7 @@ function handleLocalStorageEvent(e) {
   if (Object.keys(e.storageArea).includes('twitterAuthCode')) {
     window.removeEventListener("storage", handleLocalStorageEvent, false);
     const twitterAuthCode = localStorage.getItem('twitterAuthCode');
+    localStorage.removeItem('twitterAuthCode');
     setTwitterAuthCode(twitterAuthCode); // This doesn't necessairly happen right away....
 
     const target = 'https://api.pearpop-dev.com/v1/socialproxy/twitter/userInfo';
