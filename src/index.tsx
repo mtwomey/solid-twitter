@@ -28,38 +28,31 @@ function handleLocalStorageEvent(e) {
   if (Object.keys(e.storageArea).includes('twitterAuthCode')) {
     setTwitterCode(localStorage.getItem('twitterAuthCode'));
 
-    axios.post('https://api.twitter.com/2/oauth2/token', {
+    axios.post('https://api.pearpop-dev.com/v1/socialproxy/twitter/userInfo', {
+      code: twitterCode(),
+      clientId: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
+      redirectUri: `${window.location.href}callback/`
+    }, {
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
-      data: qs.stringify({
-        code: twitterCode(),
-        grant_type: 'authorization_code',
-        client_id: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
-        redirect_uri: 'http://127.0.0.1:3000/callback/',
-        code_verifier: 'challenge'
-      })
-    }).then(result => {
-    }).catch(error => {
-      console.log(error);
-    });
-
-    // window.removeEventListener("storage", handleLocalStorageEvent, false); // If we want to remove it
+    }).then(response => {
+      setTwitterAuthResult(JSON.stringify(response.data, null, 2));
+    })
   }
 }
 
 window.addEventListener("storage", handleLocalStorageEvent, false);
 
-function Auth () {
+function Auth() {
   return (
     <div>
       <h2>Authorize Twitter</h2>
       <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded border-0" onClick={authInit}> Authorize </button>
       <h2>Auth Code</h2>
-      <h4 class="text-red-400">{twitterCode}</h4>
+      <h4 class="text-red-400 text-lg">{twitterCode}</h4>
       <h2>Result</h2>
-      <h4 class="text-green-600">{twitterAuthResult}</h4>
-      <p>Still have to exchange it for a token</p>
+      <pre class="text-green-600 text-lg">{twitterAuthResult}</pre>
     </div>
   );
 };
