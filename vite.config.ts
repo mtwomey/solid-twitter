@@ -13,6 +13,7 @@ export default defineConfig({
   build: {
     target: 'esnext',
     polyfillDynamicImport: false,
+    sourcemap: true,
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, '/index.html'),
