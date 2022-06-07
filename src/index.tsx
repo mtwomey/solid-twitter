@@ -18,7 +18,7 @@ function authInit() {
   });
   const fullUrl = `${authUri}?${params}`;
 
-  window.addEventListener("storage", handleLocalStorageEvent, false);
+  window.addEventListener("storage", handleLocalStorageEvent, { once: true });
 
   window.open(fullUrl, 'authWindow', 'height=700,width=500');
 }
@@ -28,7 +28,6 @@ const [twitterAuthResult, setTwitterAuthResult] = createSignal('Unknown');
 
 function handleLocalStorageEvent(e) {
   if (Object.keys(e.storageArea).includes('twitterAuthCode')) {
-    window.removeEventListener("storage", handleLocalStorageEvent, false);
     const twitterAuthCode = localStorage.getItem('twitterAuthCode');
     localStorage.removeItem('twitterAuthCode');
     setTwitterAuthCode(twitterAuthCode); // This doesn't necessairly happen right away....
