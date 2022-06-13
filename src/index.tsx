@@ -38,7 +38,8 @@ function handleLocalStorageEvent(e) {
       axios.post(target, {
         code: twitterAuthCode,
         clientId: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
-        redirectUri: `${window.location.href}callback/`
+        redirectUri: `${window.location.href}callback/`,
+        codeVerifier: 'challenge'
       }, {
         headers: {
           'Content-Type': 'application/json'
