@@ -61,7 +61,7 @@ function authInstagramInit() {
   const params = qs.stringify({
     response_type: 'code',
     client_id: '1537776126616540',
-    redirect_uri: `${window.location.href}instagam-callback/`,
+    redirect_uri: `${window.location.href}instagram-callback/`,
     // redirect_uri: 'https://fe16-173-15-87-25.ngrok.io/instagram-callback/',
     scope: 'user_profile,user_media',
   });
