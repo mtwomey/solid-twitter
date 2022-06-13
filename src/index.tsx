@@ -5,7 +5,7 @@ import qs from 'qs';
 import axios from 'axios';
 import 'uno.css';
 
-function authInit() {
+function authTwitterInit() {
   const authUri = 'https://twitter.com/i/oauth2/authorize';
   const params = qs.stringify({
     response_type: 'code',
@@ -18,7 +18,7 @@ function authInit() {
   });
   const fullUrl = `${authUri}?${params}`;
 
-  window.addEventListener("storage", handleLocalStorageEvent, { once: true });
+  window.addEventListener("storage", handleTwitterLocalStorageEvent, { once: true });
 
   window.open(fullUrl, 'authWindow', 'height=700,width=500');
 }
@@ -26,7 +26,7 @@ function authInit() {
 const [twitterAuthCode, setTwitterAuthCode] = createSignal('Unknown');
 const [twitterAuthResult, setTwitterAuthResult] = createSignal('Unknown');
 
-function handleLocalStorageEvent(e) {
+function handleTwitterLocalStorageEvent(e) {
   if (Object.keys(e.storageArea).includes('twitterAuthCode')) {
     const twitterAuthCode = localStorage.getItem('twitterAuthCode');
     localStorage.removeItem('twitterAuthCode');
@@ -59,7 +59,7 @@ function Auth() {
     <div>
       <div class="flex border-solid border-0 border-b-2 pb3">
         <div class="text-2xl font-mono font-medium">Authorize Twitter</div>
-        <button class="bg-blue-500 hover:bg-blue-700 text-white font-mono text-xs font-thin py-2 px-4 rounded border-0 ml3" onClick={authInit}> Authorize </button>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-mono text-xs font-thin py-2 px-4 rounded border-0 ml3" onClick={authTwitterInit}> Authorize </button>
       </div>
       <div class="text-2xl font-mono font-medium mt3">Auth Code</div>
       <div class="text-red-400 text-lg font-mono font-thin">{twitterAuthCode}</div>
