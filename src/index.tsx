@@ -10,7 +10,7 @@ function authTwitterInit() {
   const params = qs.stringify({
     response_type: 'code',
     client_id: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
-    redirect_uri: `${window.location.href}twitterCallback/`,
+    redirect_uri: `${window.location.href}twitter-callback/`,
     scope: 'tweet.read users.read',
     state: 'state',
     code_challenge: 'challenge',
@@ -38,7 +38,7 @@ function handleTwitterLocalStorageEvent(e) {
       axios.post(target, {
         code: twitterAuthCode,
         clientId: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
-        redirectUri: `${window.location.href}twitterCallback/`,
+        redirectUri: `${window.location.href}twitter-callback/`,
         codeVerifier: 'challenge'
       }, {
         headers: {
