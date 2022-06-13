@@ -17,7 +17,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: path.resolve(__dirname, '/index.html'),
-        callback: path.resolve(__dirname, '/callback/index.html')
+        callback: path.resolve(__dirname, '/twitter-callback/index.html')
       }
     }
   },
