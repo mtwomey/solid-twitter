@@ -82,7 +82,7 @@ function handleInstagramLocalStorageEvent(e) {
     // const target = 'http://localhost:4000/socialproxy/instagram/userInfo';
     try {
       axios.post(target, {
-        redirect_uri: 'https://solid-twitter.herokuapp.com/insta-callback/',
+        redirect_uri: '`${window.location.href}instagram-callback/`',
         code: instagramAuthCode
       }, {
         headers: {
