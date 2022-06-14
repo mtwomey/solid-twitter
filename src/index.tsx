@@ -80,20 +80,20 @@ function handleInstagramLocalStorageEvent(e) {
 
     const target = 'https://api.pearpop-dev.com/v1/socialproxy/instagram/userInfo';
     // const target = 'http://localhost:4000/socialproxy/instagram/userInfo';
-    // try {
-    //   axios.post(target, {
-    //     redirect_uri: '`${window.location.href}instagram-callback/`',
-    //     code: instagramAuthCode
-    //   }, {
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //   }).then(response => {
-    //     setInstagramAuthResult(JSON.stringify(response.data, null, 2));
-    //   })
-    // } catch (e) {
-    //   let x = e;
-    // }
+    try {
+      axios.post(target, {
+        redirectUri: '`${window.location.href}instagram-callback/`',
+        code: instagramAuthCode
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      }).then(response => {
+        setInstagramAuthResult(JSON.stringify(response.data, null, 2));
+      })
+    } catch (e) {
+      let x = e;
+    }
   }
 }
 
