@@ -105,7 +105,7 @@ function handleInstagramLocalStorageEvent(e) {
 }
 
 async function authTwitter10aInit() {
-  const { token, tokenSecret } = (await axios.get('https://api.pearpop-dev.com/v1/socialproxy/twitter10a/appToken')).data;
+  const { token, tokenSecret } = (await axios.get('https://api.pearpop-dev.com/v1/socialproxy/twitter10a/appToken?callbackUrl=https://solid-twitter.herokuapp.com/twitter10a_callback/')).data;
 
   setTwitter10aToken(token);
   setTwitter10aTokenSecret(tokenSecret);
@@ -132,7 +132,8 @@ function handleTwitter10aLocalStorageEvent(e) {
       axios.post('https://api.pearpop-dev.com/v1/socialproxy/twitter10a/userInfo', {
         tokenSecret: twitter10aTokenSecret(),
         oauthToken: twitter10aToken(),
-        oauthVerifier: oauthVerifier
+        oauthVerifier: oauthVerifier,
+        callbackUrl: 'https://solid-twitter.herokuapp.com/twitter10a_callback/'
       }).then(response => {
         setTwitter10aAuthResult(JSON.stringify(response.data, null, 2));
       })
