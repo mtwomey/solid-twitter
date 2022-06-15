@@ -11,6 +11,11 @@ const [twitterAuthResult, setTwitterAuthResult] = createSignal('Unknown');
 const [instagramAuthCode, setInstagramAuthCode] = createSignal('Unknown');
 const [instagramAuthResult, setInstagramAuthResult] = createSignal('Unknown');
 
+const [twitter10aToken, setTwitter10aToken] = createSignal('Unknown');
+const [twitter10aTokenSecret, setTwitter10aTokenSecret] = createSignal('Unknown');
+const [twitter10aAuthCode, setTwitter10aAuthCode] = createSignal('Unknown');
+const [twitter10aAuthResult, setTwitter10aAuthResult] = createSignal('Unknown');
+
 function authTwitterInit() {
   const authUri = 'https://twitter.com/i/oauth2/authorize';
   const params = qs.stringify({
@@ -97,17 +102,55 @@ function handleInstagramLocalStorageEvent(e) {
   }
 }
 
+async function authTwitter10aInit() {
+  const { token, tokenSecret } = (await axios.get('https://api.pearpop-dev.com/v1/socialproxy/twitter10a/appToken')).data;
+
+  setTwitter10aToken(token);
+  setTwitter10aTokenSecret(tokenSecret);
+
+  const authUri = 'https://api.twitter.com/oauth/authorize';
+  const params = qs.stringify({
+    oauth_token: token
+  });
+  const fullUrl = `${authUri}?${params}`;
+
+  window.addEventListener("storage", handleTwitter10aLocalStorageEvent, { once: true });
+
+  window.open(fullUrl, 'authWindow', 'height=700,width=500');
+
+  let x = 10;
+}
+
+function handleTwitter10aLocalStorageEvent(e) {
+  if (Object.keys(e.storageArea).includes('twitter10aOauthVerifier')) {
+    const oauthVerifier = localStorage.getItem('twitter10aOauthVerifier');
+    localStorage.removeItem('twitter10aOauthVerifier');
+
+    try {
+      axios.post('https://api.pearpop-dev.com/v1/socialproxy/twitter10a/userInfo', {
+        tokenSecret: twitter10aTokenSecret,
+        oauthToken: twitter10aToken,
+        oauthVerifier: oauthVerifier
+      }).then(result => {
+        let x = result;
+      })
+    } catch (e) {
+      let x = e;
+    }
+  }
+}
+
 function Auth() {
   return (
     <div>
       {/* Twitter */}
       <div class="flex border-solid border-0 border-b-2 pb3">
-        <div class="text-2xl font-mono font-medium">Authorize Twitter</div>
+        <div class="text-2xl font-mono">Authorize Twitter</div>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-mono text-xs font-thin py-2 px-4 rounded border-0 ml3" onClick={authTwitterInit}> Authorize </button>
       </div>
-      <div class="text-2xl font-mono font-medium mt3">Auth Code</div>
+      <div class="text-xl font-mono mt3">Auth Code:</div>
       <div class="text-red-400 text-lg font-mono font-thin">{twitterAuthCode}</div>
-      <div class="text-2xl font-mono font-medium mt3">Result</div>
+      <div class="text-xl font-mono mt3">Result:</div>
       <div class="text-green-600 text-lg font-mono font-thin whitespace-pre">{twitterAuthResult}</div>
 
       {/* Instagram */}
@@ -115,10 +158,22 @@ function Auth() {
         <div class="text-2xl font-mono font-medium">Authorize Instagram</div>
         <button class="bg-blue-500 hover:bg-blue-700 text-white font-mono text-xs font-thin py-2 px-4 rounded border-0 ml3" onClick={authInstagramInit}> Authorize </button>
       </div>
-      <div class="text-2xl font-mono font-medium mt3">Auth Code</div>
+      <div class="text-xl font-mono mt3">Auth Code:</div>
       <div class="text-red-400 text-lg font-mono font-thin">{instagramAuthCode}</div>
-      <div class="text-2xl font-mono font-medium mt3">Result</div>
+      <div class="text-xl font-mono mt3">Result:</div>
       <div class="text-green-600 text-lg font-mono font-thin whitespace-pre">{instagramAuthResult}</div>
+
+      {/* Twitter 1.1 API*/}
+      <div class="flex mt5 border-solid border-0 border-b-2 pb3">
+        <div class="text-2xl font-mono font-medium">Authorize Twitter 1.1 API</div>
+        <button class="bg-blue-500 hover:bg-blue-700 text-white font-mono text-xs font-thin py-2 px-4 rounded border-0 ml3" onClick={authTwitter10aInit}> Authorize </button>
+      </div>
+      <div class="text-xl font-mono mt3">App Token:</div>
+      <div class="text-red-400 text-lg font-mono font-thin">{twitter10aToken}</div>
+      <div class="text-xl font-mono mt3">App Token Secret:</div>
+      <div class="text-red-400 text-lg font-mono font-thin">{twitter10aTokenSecret}</div>
+      <div class="text-xl font-mono mt3">Result:</div>
+      <div class="text-green-600 text-lg font-mono font-thin whitespace-pre">{twitter10aAuthResult}</div>
     </div>
   );
 };

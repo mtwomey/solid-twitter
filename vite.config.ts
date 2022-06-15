@@ -18,7 +18,8 @@ export default defineConfig({
       input: {
         main: path.resolve(__dirname, '/index.html'),
         'twitter-callback': path.resolve(__dirname, '/twitter-callback/index.html'),
-        'instagram-callback': path.resolve(__dirname, '/instagram-callback/index.html')
+        'instagram-callback': path.resolve(__dirname, '/instagram-callback/index.html'),
+        'twitter10a-callback': path.resolve(__dirname, '/twitter-callback/index.html')
       }
     }
   },
