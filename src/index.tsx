@@ -20,7 +20,8 @@ function authTwitterInit() {
   const authUri = 'https://twitter.com/i/oauth2/authorize';
   const params = qs.stringify({
     response_type: 'code',
-    client_id: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
+    // client_id: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
+    client_id: 'V24xNDNNZmJjeDV0U1l4Z0dtYi06MTpjaQ', // Pearpop Dev
     redirect_uri: `${window.location.href}twitter-callback/`,
     scope: 'tweet.read users.read',
     state: 'state',
@@ -45,7 +46,8 @@ function handleTwitterLocalStorageEvent(e) {
     try {
       axios.post(target, {
         code: twitterAuthCode,
-        clientId: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
+        // clientId: 'ZGFZeGV6MmRZNkdBNXY0MVdGeW06MTpjaQ',
+        clientId: 'V24xNDNNZmJjeDV0U1l4Z0dtYi06MTpjaQ', // Pearpop Dev
         redirectUri: `${window.location.href}twitter-callback/`,
         codeVerifier: 'challenge'
       }, {
