@@ -105,16 +105,24 @@ function handleInstagramLocalStorageEvent(e) {
 }
 
 async function authTwitter10aInit() {
-  const { token, tokenSecret } = (await axios.get('https://api.pearpop-dev.com/v1/socialproxy/twitter10a/appToken?callbackUrl=https://solid-twitter.herokuapp.com/twitter10a_callback/')).data;
+  let authUri, params, fullUrl;
+
+  authUri = 'https://api.pearpop-dev.com/v1/socialproxy/twitter10a/appToken';
+  params = qs.stringify({
+    callbackUrl: 'https://solid-twitter.herokuapp.com/twitter10a_callback/'
+  });
+  fullUrl = `${authUri}?${params}`;
+
+  const { token, tokenSecret } = (await axios.get(fullUrl)).data;
 
   setTwitter10aToken(token);
   setTwitter10aTokenSecret(tokenSecret);
 
-  const authUri = 'https://api.twitter.com/oauth/authorize';
-  const params = qs.stringify({
+  authUri = 'https://api.twitter.com/oauth/authorize';
+  params = qs.stringify({
     oauth_token: token
   });
-  const fullUrl = `${authUri}?${params}`;
+  fullUrl = `${authUri}?${params}`;
 
   window.addEventListener("storage", handleTwitter10aLocalStorageEvent, { once: true });
 
