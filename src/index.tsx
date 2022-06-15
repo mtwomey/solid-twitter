@@ -131,8 +131,8 @@ function handleTwitter10aLocalStorageEvent(e) {
         tokenSecret: twitter10aTokenSecret(),
         oauthToken: twitter10aToken(),
         oauthVerifier: oauthVerifier
-      }).then(result => {
-        setTwitter10aAuthResult(result.data);
+      }).then(response => {
+        setTwitter10aAuthResult(JSON.stringify(response.data, null, 2));
       })
     } catch (e) {
       let x = e;
