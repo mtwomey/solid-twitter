@@ -128,13 +128,14 @@ function handleTwitter10aLocalStorageEvent(e) {
 
     try {
       axios.post('https://api.pearpop-dev.com/v1/socialproxy/twitter10a/userInfo', {
-        tokenSecret: twitter10aTokenSecret,
-        oauthToken: twitter10aToken,
+        tokenSecret: twitter10aTokenSecret(),
+        oauthToken: twitter10aToken(),
         oauthVerifier: oauthVerifier
       }).then(result => {
         let x = result;
       })
     } catch (e) {
+      debugger
       let x = e;
     }
   }
