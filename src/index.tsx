@@ -109,7 +109,7 @@ async function authTwitter10aInit() {
 
   authUri = 'https://api.pearpop-dev.com/v1/socialproxy/twitter10a/appToken';
   params = qs.stringify({
-    callbackUrl: 'https://solid-twitter.herokuapp.com/twitter10a_callback/'
+    callbackUrl: 'https://solid-twitter.herokuapp.com/twitter10a-callback/'
   });
   fullUrl = `${authUri}?${params}`;
 
@@ -141,7 +141,7 @@ function handleTwitter10aLocalStorageEvent(e) {
         tokenSecret: twitter10aTokenSecret(),
         oauthToken: twitter10aToken(),
         oauthVerifier: oauthVerifier,
-        callbackUrl: 'https://solid-twitter.herokuapp.com/twitter10a_callback/'
+        callbackUrl: 'https://solid-twitter.herokuapp.com/twitter10a-callback/'
       }).then(response => {
         setTwitter10aAuthResult(JSON.stringify(response.data, null, 2));
       })
