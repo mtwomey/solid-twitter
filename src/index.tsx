@@ -132,10 +132,9 @@ function handleTwitter10aLocalStorageEvent(e) {
         oauthToken: twitter10aToken(),
         oauthVerifier: oauthVerifier
       }).then(result => {
-        let x = result;
+        setTwitter10aAuthResult(result.data);
       })
     } catch (e) {
-      debugger
       let x = e;
     }
   }
